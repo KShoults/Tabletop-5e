@@ -3,10 +3,9 @@ It also includes the order these things will get done.
 
 Goals:
   Basic, testable, functionality in the three different sections of the project. 
-    Java Core: Read and Write character data to the database and store token data and map tile data from a default map. 
+    Java Core: Read and Write character data to the database and store token data. 
     Database Backend: A single database holding saved character data accessible to anyone. (Login system will be later.)
     Web Frontend: A simple interface to test reading and writing to the database with asynchronous updating. 
-                  Also viewing and changing token and tile data. 
                   
 Order:
   1. Java
