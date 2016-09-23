@@ -43,6 +43,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="jni4net.n-0.8.8.0">
+      <HintPath>..\..\..\..\..\Downloads\jni4net-0.8.8.0-bin\lib\jni4net.n-0.8.8.0.dll</HintPath>
+    </Reference>
+    <Reference Include="jni4net.n.w32.v20-0.8.8.0">
+      <HintPath>..\..\..\..\..\Downloads\jni4net-0.8.8.0-bin\lib\jni4net.n.w32.v20-0.8.8.0.dll</HintPath>
+    </Reference>
+    <Reference Include="jni4net.n.w32.v40-0.8.8.0">
+      <HintPath>..\..\..\..\..\Downloads\jni4net-0.8.8.0-bin\lib\jni4net.n.w32.v40-0.8.8.0.dll</HintPath>
+    </Reference>
+    <Reference Include="jni4net.n.w64.v20-0.8.8.0">
+      <HintPath>..\..\..\..\..\Downloads\jni4net-0.8.8.0-bin\lib\jni4net.n.w64.v20-0.8.8.0.dll</HintPath>
+    </Reference>
+    <Reference Include="jni4net.n.w64.v40-0.8.8.0">
+      <HintPath>..\..\..\..\..\Downloads\jni4net-0.8.8.0-bin\lib\jni4net.n.w64.v40-0.8.8.0.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
