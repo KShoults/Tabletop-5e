@@ -2,12 +2,5 @@ This is a list of what I want to accomplish with this branch before merging it.
 It also includes the order these things will get done. 
 
 Goals:
-  Basic, testable, functionality in the three different sections of the project. 
-    Java Core: Read and Write character data to the database and store token data. 
-    Database Backend: A single database holding saved character data accessible to anyone. (Login system will be later.)
-    Web Frontend: A simple interface to test reading and writing to the database with asynchronous updating. 
-                  
-Order:
-  1. Java
-  2. Database
-  3. Web
+  Basic functionality across rails connecting the character database through the view.
+  This alternate branch is exploring the possibility of ditching java and using only embedded javascript.
