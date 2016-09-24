@@ -4,6 +4,7 @@ class StaticPagesControllerTest < ActionController::TestCase
   test "should get home" do
     get :home
     assert_response :success
+    assert_select "title", "Tabletop5e"
   end
 
   test "should get table" do
@@ -14,6 +15,6 @@ class StaticPagesControllerTest < ActionController::TestCase
 
   test "should get page table with text circle" do
     get :table
-    assert_select "h7", "Circle"
+    assert_select "h7", "circle"
   end
 end
