@@ -12,9 +12,4 @@ class StaticPagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "title", "Tabletop | Tabletop5e"
   end
-
-  test "should get page table with text circle" do
-    get :table
-    assert_select "h7", "circle"
-  end
 end
