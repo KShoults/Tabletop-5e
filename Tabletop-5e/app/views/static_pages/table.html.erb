@@ -2,4 +2,14 @@
 <h1>Tabletop-5e</h1>
 <p>Enter the character's name.</p>
 
-<h7><%= read_chardata() %></h7>
+<div>
+  <%= form_for(@char0, url: static_pages_table_url) do |f| %>
+  
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  
+  <%= f.submit "Find shape"%>
+  
+  <% end %>
+</div>
+<h3><%= Character.find_by(name: params[:character][:name]).shape if params[:character] != nil %></h3>

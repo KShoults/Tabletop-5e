@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'static_pages/home'
+  get 'static_pages/home',   to: 'static_pages#home'
 
-  get 'static_pages/table'
+  get 'static_pages/table',  to: 'static_pages#table'
+  post 'static_pages/table', to: 'static_pages#table'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

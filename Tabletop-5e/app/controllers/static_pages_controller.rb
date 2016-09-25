@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   end
 
   def table
-    system "~/workspace/*Frontend/app/assets/javainit.bash"
+    @char0 = Character.new()
   end
+  
 end
