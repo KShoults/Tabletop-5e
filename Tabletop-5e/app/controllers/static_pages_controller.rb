@@ -6,4 +6,6 @@ class StaticPagesController < ApplicationController
     @char0 = Character.new()
   end
   
+  def about
+  end
 end

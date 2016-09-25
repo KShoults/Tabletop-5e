@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class StaticPagesControllerTest < ActionController::TestCase
+  test "should get root route" do
+    get :/
+    assert_response :success
+  end
   test "should get home" do
     get :home
     assert_response :success
