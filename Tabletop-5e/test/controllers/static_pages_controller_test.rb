@@ -11,7 +11,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   test "should get table" do
     get table_path
     assert_response :success
-    assert_select "title", "Tabletop | Tabletop-5e"
+    assert_select "title", "Table | Tabletop-5e"
   end
   
   test "should get about" do
