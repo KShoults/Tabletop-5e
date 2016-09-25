@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
-  get 'static_pages/about'
-
-  get 'static_pages/home',   to: 'static_pages#home'
-
-  get 'static_pages/table',  to: 'static_pages#table'
-  post 'static_pages/table', to: 'static_pages#table'
+  root 'static_pages#home'
+  get '/about',     to: 'static_pages#about'
+  get '/contact',   to: 'static_pages#contact'
+  get '/table',     to: 'static_pages#table'
+  post '/table',    to: 'static_pages#table'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  root 'static_pages#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
