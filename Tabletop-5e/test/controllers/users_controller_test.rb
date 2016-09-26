@@ -6,5 +6,4 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "title", "Signup | Tabletop-5e"
   end
-
 end

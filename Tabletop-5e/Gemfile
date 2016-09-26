@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', ' >= 4.2.5'
+# Use bcrypt for secure password digest storage
+gem 'bcrypt'
 # Use Bootstrap for quick styling
 gem 'bootstrap-sass'
 # Use sqlite3 as the database for Active Record
