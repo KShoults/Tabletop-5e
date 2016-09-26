@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/new'
 
   root 'static_pages#home'
   get '/about',     to: 'static_pages#about'
@@ -7,6 +6,9 @@ Rails.application.routes.draw do
   get '/table',     to: 'static_pages#table'
   post '/table',    to: 'static_pages#table'
   get '/signup',    to: 'users#new'
+  get 'login',      to: 'sessions#new'
+  post 'login',     to: 'sessions#create'
+  delete 'logout',   to: 'sessions#destroy'
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
