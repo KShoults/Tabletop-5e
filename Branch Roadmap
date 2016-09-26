@@ -1,6 +1,0 @@
-This is a list of what I want to accomplish with this branch before merging it.
-It also includes the order these things will get done. 
-
-Goals:
-  Basic functionality across rails connecting the character database through the view.
-  This alternate branch is exploring the possibility of ditching java and using only embedded javascript.
