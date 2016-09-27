@@ -1,10 +1,12 @@
 class CharactersController < ApplicationController
+  include TokensHelper
+  
   def new
     @character = Character.new()
   end
   
   def show
-    @character = Character.find(params[:id])
+    @token = Token.new(Character.find(params[:id]))
   end
   
   def create

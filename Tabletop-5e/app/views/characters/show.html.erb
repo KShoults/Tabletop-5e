@@ -3,26 +3,29 @@
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
-        <%= @character.name %>
+        <%= @token.name %>
       </h2>
-      <ul>
-        <li>Strength: <%= @character.strength %></li>
-        <li>Dexterity: <%= @character.dexterity %></li>
-        <li>Constitution: <%= @character.constitution %></li>
-        <li>Intelligence: <%= @character.intelligence %></li>
-        <li>Wisdom: <%= @character.wisdom %></li>
-        <li>Charisma: <%= @character.charisma %></li>
-        <li>Class: <%= @character.character_class %></li>
-        <li>Race: <%= @character.race %></li>
-        <li>Background: <%= @character.background %></li>
-        <li>Alignment: <%= @character.alignment %></li>
-        <li>Player Name: <%= @character.player_name %></li>
-        <li>Experience Points: <%= @character.experience_points %></li>
-        <li>Speed: <%= @character.speed %></li>
-        <li>Max Hit Points: <%= @character.max_hit_points %></li>
-        <li>Type of Hit Dice: <%= @character.type_hit_dice %></li>
-        <li>Languages: <%= @character.languages %></li>
-        <li>Inventory: <%= @character.inventory %></li>
+      <ul>        
+        <li>Level: <%= @token.level %> (<%= @token.proficiency_bonus %>)</li>
+        <li>Race: <%= @token.race %></li>
+        <li>Class: <%= @token.character_class %></li>
+        <li>Background: <%= @token.background %></li>
+        <li>Alignment: <%= @token.alignment %></li>
+        <li>Player Name: <%= @token.player_name %></li>
+        <li>Experience Points: <%= @token.experience_points %></li>
+        <li>Strength: <%= @token.strength %> (<%= @token.strength_bonus %>)</li>
+        <li>Dexterity: <%= @token.dexterity %> (<%= @token.dexterity_bonus %>)</li>
+        <li>Constitution: <%= @token.constitution %> (<%= @token.constitution_bonus %>)</li>
+        <li>Intelligence: <%= @token.intelligence %> (<%= @token.intelligence_bonus %>)</li>
+        <li>Wisdom: <%= @token.wisdom %> (<%= @token.wisdom_bonus %>)</li>
+        <li>Charisma: <%= @token.charisma %> (<%= @token.charisma_bonus %>)</li>
+        <li>Initiative Bonus: <%= @token.dexterity_bonus %></li>
+        <li>Speed: <%= @token.speed %> feet</li>
+        <li>Max Hit Points: <%= @token.max_hit_points %></li>
+        <li>Passive Perception: <%= @token.wisdom_bonus %></li>
+        <li>Hit Dice: <%= @token.hit_dice %></li>
+        <li>Languages: <%= @token.languages %></li>
+        <li>Inventory: <%= @token.inventory %></li>
       </ul>
     </section>
   </aside>

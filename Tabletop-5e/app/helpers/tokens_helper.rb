@@ -1,4 +1,4 @@
-module CharacterHelper
+module TokensHelper
   def exp_to_level experience_points
     experience = experience.to_f
     if experience < 300
@@ -43,4 +43,26 @@ module CharacterHelper
       20
     end
   end
+  
+  def find_attribute_bonus attribute
+    attribute = attribute.to_i
+    format_bonus ((attribute - 10) / 2)
+  end
+  
+  def find_proficency_bonus level
+    format_bonus ((level.to_f / 4).ceil + 1)
+  end
+  
+  def find_hit_dice level, type
+    level.to_s + "d" + type.to_s
+  end
+  
+  private
+    def format_bonus bonus
+      if bonus >= 0
+        '+' + bonus.to_s
+      else
+        bonus
+      end
+    end
 end
