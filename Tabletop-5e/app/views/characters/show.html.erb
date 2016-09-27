@@ -4,7 +4,27 @@
     <section class="user_info">
       <h1>
         <%= @character.name %>
-      </h1>
+      </h2>
+      <ul>
+        <li>Strength: <%= @character.strength %></li>
+        <li>Dexterity: <%= @character.dexterity %></li>
+        <li>Constitution: <%= @character.constitution %></li>
+        <li>Intelligence: <%= @character.intelligence %></li>
+        <li>Wisdom: <%= @character.wisdom %></li>
+        <li>Charisma: <%= @character.charisma %></li>
+        <li>Class: <%= @character.character_class %></li>
+        <li>Race: <%= @character.race %></li>
+        <li>Background: <%= @character.background %></li>
+        <li>Alignment: <%= @character.alignment %></li>
+        <li>Player Name: <%= @character.player_name %></li>
+        <li>Experience Points: <%= @character.experience_points %></li>
+        <li>Speed: <%= @character.speed %></li>
+        <li>Max Hit Points: <%= @character.max_hit_points %></li>
+        <li>Type of Hit Dice: <%= @character.type_hit_dice %></li>
+        <li>Languages: <%= @character.languages %></li>
+        <li>Inventory: <%= @character.inventory %></li>
+      </ul>
     </section>
   </aside>
-</div><h1></h1>
+</div>
+<p><%= link_to "Delete Character", character_path, method: :delete %></p>

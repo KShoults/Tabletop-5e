@@ -6,7 +6,15 @@
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "About", about_path %></li>
         <li><%= link_to "Table", table_path %></li>
-        <li><%= link_to "Characters", characters_path %></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Characters <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "New Character", new_character_path  %></li>
+            <li><%= link_to "Character Index", characters_path %></li>
+          </ul>
+        </li>
         <% if logged_in? %>
           <li><% link_to "User", '#' %></li>
           <li class="dropdown">
