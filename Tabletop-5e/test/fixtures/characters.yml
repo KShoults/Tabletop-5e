@@ -6,17 +6,17 @@ one:
   dexterity: 1
   constitution: 1
   intelligence: 1
-  wisdon: 1
+  wisdom: 1
   charisma: 1
-  class: MyString
+  character_class: MyString
   race: MyString
   background: MyString
   alignment: MyString
   player_name: MyString
   experience_points: MyString
   speed: 1
-  max_hit_points: 
-  type_hit_dice: 
+  max_hit_points: 1
+  type_hit_dice: 1
   languages: MyString
   inventory: MyString
 
@@ -26,16 +26,16 @@ two:
   dexterity: 1
   constitution: 1
   intelligence: 1
-  wisdon: 1
+  wisdom: 1
   charisma: 1
-  class: MyString
+  character_class: MyString
   race: MyString
   background: MyString
   alignment: MyString
   player_name: MyString
   experience_points: MyString
   speed: 1
-  max_hit_points: 
-  type_hit_dice: 
+  max_hit_points: 1
+  type_hit_dice: 1
   languages: MyString
   inventory: MyString

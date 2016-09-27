@@ -13,7 +13,7 @@ class CharactersController < ApplicationController
       flash[:success] = "Character created successfully."
       redirect_to @character
     else
-      flash.now[:danger] = "Character name required."
+      flash.now[:danger] = "Character creation failed."
       render 'new'
     end
   end
@@ -25,7 +25,7 @@ class CharactersController < ApplicationController
   
     def character_params
       params.require(:character).permit(:name, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma,
-                                   :class, :race, :backgroud, :alignment, :player_name, :experience_points,
+                                   :character_class, :race, :backgroud, :alignment, :player_name, :experience_points,
                                    :speed, :max_hit_points, :type_hit_dice, :languages, :inventory)
     end
 end
