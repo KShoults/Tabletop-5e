@@ -1,0 +1,63 @@
+<% provide(:title, "Character Creation") %>
+<h1>Input character information</h1>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <%= form_for(@character) do |f| %>
+        
+            <%= f.label :name %>
+            <%= f.text_field :name, class: 'form-control' %>
+            
+            <%= f.label :strength %>
+            <%= f.number_field :strength, class: 'form-control' %>
+            
+            <%= f.label :dexterity %>
+            <%= f.number_field :dexterity, class: 'form-control' %>
+            
+            <%= f.label :constitution %>
+            <%= f.number_field :constitution, class: 'form-control' %>
+            
+            <%= f.label :intelligence %>
+            <%= f.number_field :intelligence, class: 'form-control' %>
+            
+            <%= f.label :wisdom %>
+            <%= f.number_field :wisdom, class: 'form-control' %>
+            
+            <%= f.label :charisma %>
+            <%= f.number_field :charisma, class: 'form-control' %>
+        
+            <%= f.label :character_class, "Class" %>
+            <%= f.text_field :character_class, class: 'form-control' %>
+        
+            <%= f.label :race %>
+            <%= f.text_field :race, class: 'form-control' %>
+        
+            <%= f.label :background %>
+            <%= f.text_field :background, class: 'form-control' %>
+        
+            <%= f.label :alignment %>
+            <%= f.text_field :alignment, class: 'form-control' %>
+        
+            <%= f.label :player_name, "Player's Name" %>
+            <%= f.text_field :player_name, class: 'form-control' %>
+            
+            <%= f.label :experience_points, "Experience Points" %>
+            <%= f.number_field :experience_points, class: 'form-control' %>
+            
+            <%= f.label :speed %>
+            <%= f.number_field :speed, class: 'form-control' %>
+            
+            <%= f.label :max_hit_points, "Maximun Hit Points" %>
+            <%= f.number_field :max_hit_points, class: 'form-control' %>
+            
+            <%= f.label :type_hit_dice, "Type of Hit Dice" %>
+            <%= f.number_field :type_hit_dice, class: 'form-control' %>
+        
+            <%= f.label :languages %>
+            <%= f.text_field :languages, class: 'form-control' %>
+        
+            <%= f.label :inventory %>
+            <%= f.text_field :inventory, class: 'form-control' %>
+            
+            <%= f.submit "Create character", class: "btn btn-primary" %>
+        <% end %>
+    </div>

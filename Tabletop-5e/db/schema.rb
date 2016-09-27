@@ -10,13 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926000256) do
+ActiveRecord::Schema.define(version: 20160927003243) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "name"
-    t.string   "shape"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "strength"
+    t.integer  "dexterity"
+    t.integer  "constitution"
+    t.integer  "intelligence"
+    t.integer  "wisdom"
+    t.integer  "charisma"
+    t.string   "character_class"
+    t.string   "race"
+    t.string   "background"
+    t.string   "alignment"
+    t.string   "player_name"
+    t.string   "experience_points"
+    t.integer  "speed"
+    t.integer  "max_hit_points"
+    t.integer  "type_hit_dice"
+    t.string   "languages"
+    t.string   "inventory"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "users", force: :cascade do |t|

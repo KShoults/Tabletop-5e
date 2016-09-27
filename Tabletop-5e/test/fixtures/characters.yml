@@ -2,8 +2,40 @@
 
 one:
   name: MyString
-  shape: MyString
+  strength: 1
+  dexterity: 1
+  constitution: 1
+  intelligence: 1
+  wisdon: 1
+  charisma: 1
+  class: MyString
+  race: MyString
+  background: MyString
+  alignment: MyString
+  player_name: MyString
+  experience_points: MyString
+  speed: 1
+  max_hit_points: 
+  type_hit_dice: 
+  languages: MyString
+  inventory: MyString
 
 two:
   name: MyString
-  shape: MyString
+  strength: 1
+  dexterity: 1
+  constitution: 1
+  intelligence: 1
+  wisdon: 1
+  charisma: 1
+  class: MyString
+  race: MyString
+  background: MyString
+  alignment: MyString
+  player_name: MyString
+  experience_points: MyString
+  speed: 1
+  max_hit_points: 
+  type_hit_dice: 
+  languages: MyString
+  inventory: MyString
