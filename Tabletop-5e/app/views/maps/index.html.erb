@@ -1,0 +1,7 @@
+<%= provide(:title , "Map Index") %>
+<h1>Map Index</h1>
+<ul>
+  <% Map.all.each do |m| %>
+    <li><%= link_to(m.name, m) + ", Size: " + format_size(m.width, m.length) %> <%= link_to "Delete Map", map_path(id: m.id), method: :delete %></li>
+  <% end %>
+</ul>

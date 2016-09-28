@@ -62,7 +62,7 @@ module TokensHelper
       if bonus >= 0
         '+' + bonus.to_s
       else
-        bonus
+        bonus.to_s
       end
     end
 end
