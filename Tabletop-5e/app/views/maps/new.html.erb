@@ -1,0 +1,33 @@
+<% provide(:title, "New Map") %>
+<h1>New Map</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@map) do |f| %>
+    
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+      
+      <%= f.label :width %>
+      <%= f.number_field :width, class: 'form-control' %>
+      
+      <%= f.label :length %>
+      <%= f.number_field :length, class: 'form-control' %>
+      
+      <%= f.label :tiles, "Designate what the default terrain should be." %>
+      <div class="form-inline center">
+        <%= f.label :tiles_open, "Open" %>
+        <%= f.radio_button :tiles, "open", class: 'form-control'  %>
+        <%= f.label :tiles_normal, "Normal", checked: true %>
+        <%= f.radio_button :tiles, "normal", class: 'form-control'  %>
+      </div>
+      <div class="form-inline center">
+        <%= f.label :tiles_difficult, "Difficult" %>
+        <%= f.radio_button :tiles, "difficult", class: 'form-control'  %>
+        <%= f.label :tiles_blocked, "Blocked" %>
+        <%= f.radio_button :tiles, "blocked", class: 'form-control'  %>
+      </div>
+      
+      <%= f.submit "Create map", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

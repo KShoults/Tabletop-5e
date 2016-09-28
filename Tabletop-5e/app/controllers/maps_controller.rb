@@ -1,7 +1,6 @@
 class MapsController < ApplicationController
   def new
     @map = Map.new()
-    render 'show'
   end
   
   def show
@@ -10,6 +9,7 @@ class MapsController < ApplicationController
   
   def create
     @map = Map.new(map_params)
+    @map.tiles = @tiles
     if @map.save
       flash[:success] = "Map saved"
       redirect_to maps_path
@@ -36,6 +36,15 @@ class MapsController < ApplicationController
   private
     
     def map_params
+      tile = Tile.new()
+      tile.terrain = params[:map][:tiles]
+      tile.token = nil
+      if params[:map][:tiles] == "blocked"
+        tile.walls = "nesw"
+      end
+      
+      @tiles = Array.new(params[:map][:width].to_f) { Array.new(params[:map][:width].to_f, tile) }
+      
       params.require(:map).permit(:name, :length, :width, :tiles, :tokens)
     end
 end
