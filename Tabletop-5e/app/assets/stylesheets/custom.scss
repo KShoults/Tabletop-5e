@@ -164,7 +164,7 @@ input {
 #error_explanation {
   color: red;
   ul {
-    colore: red;
+    color: red;
     margin: 0 0 30px 0;
   }
 }
@@ -174,4 +174,13 @@ input {
   .form-control {
     color: $state-danger-text;
   }
+}
+
+/* viewport */
+
+#viewport {
+ margin: 0 0 0 0;
+ font-size: 0;
+ width: 100%;
+ height: 100%;
 }

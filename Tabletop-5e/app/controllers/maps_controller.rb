@@ -5,6 +5,7 @@ class MapsController < ApplicationController
   
   def show
     @map = Map.find(params[:id])
+    gon.map = @map
   end
   
   def create
@@ -43,7 +44,7 @@ class MapsController < ApplicationController
         tile.walls = "nesw"
       end
       
-      @tiles = Array.new(params[:map][:width].to_f) { Array.new(params[:map][:width].to_f, tile) }
+      @tiles = Array.new(params[:map][:length].to_f) { Array.new(params[:map][:width].to_f, tile) }
       
       params.require(:map).permit(:name, :length, :width, :tiles, :tokens)
     end

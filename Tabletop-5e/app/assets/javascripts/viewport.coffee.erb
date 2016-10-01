@@ -1,0 +1,96 @@
+$ ->
+  viewport = $('#viewport').get(0)
+  if (viewport)
+    Viewport.initializeViewport()
+    $(window).load -> Viewport.drawMap()
+
+class @Viewport
+  @open_high
+  @open_med
+  @open_low
+  @normal_high
+  @normal_med
+  @normal_low
+  @difficult_high
+  @difficult_med
+  @difficult_low
+  @blocked_high
+  @blocked_med
+  @blocked_low
+  @token_high
+  @token_med
+  @token_low
+  
+  @initializeViewport: ->
+    @loadImages()
+    @loadEventHandlers()
+    
+  @loadImages: ->
+    @open_high = new Image()
+    @open_med = new Image()
+    @open_low = new Image()
+    @normal_high = new Image()
+    @normal_med = new Image()
+    @normal_low = new Image()
+    @difficult_high = new Image()
+    @difficult_med = new Image()
+    @difficult_low = new Image()
+    @blocked_high = new Image()
+    @blocked_med = new Image()
+    @blocked_low = new Image()
+    @token_high = new Image()
+    @token_med = new Image()
+    @token_low = new Image()
+    @open_high.src = "<%= asset_path('open_high_rez.jpg') %>"
+    @open_med.src = "<%= asset_path('open_med_rez.jpg') %>"
+    @open_low.src = "<%= asset_path('open_low_rez.jpg') %>"
+    @normal_high.src = "<%= asset_path('normal_high_rez.jpg') %>"
+    @normal_med.src = "<%= asset_path('normal_med_rez.jpg') %>"
+    @normal_low.src = "<%= asset_path('normal_low_rez.jpg') %>"
+    @difficult_high.src = "<%= asset_path('difficult_high_rez.jpg') %>"
+    @difficult_med.src = "<%= asset_path('difficult_med_rez.jpg') %>"
+    @difficult_low.src = "<%= asset_path('difficult_low_rez.jpg') %>"
+    @blocked_high.src = "<%= asset_path('blocked_high_rez.jpg') %>"
+    @blocked_med.src = "<%= asset_path('blocked_med_rez.jpg') %>"
+    @blocked_low.src = "<%= asset_path('blocked_low_rez.jpg') %>"
+    @token_high.src = "<%= asset_path('token_high_rez.jpg') %>"
+    @token_med.src = "<%= asset_path('token_med_rez.jpg') %>"
+    @token_low.src = "<%= asset_path('token_low_rez.jpg') %>"
+    
+  @loadEventHandlers: ->
+    viewport = $('#viewport')
+    viewport.on 'click', @clickHandler
+    
+  @drawMap: -> 
+    canvas = $('#viewport').get(0)
+    ctx = canvas.getContext("2d")
+    for i in [0..gon.map.length - 1]
+      for j in [0..gon.map.width - 1]
+        switch gon.map.tiles[i][j].terrain
+          when 'open'
+            ctx.drawImage(@open_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+          when 'normal'
+            ctx.drawImage(@normal_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+          when 'difficult'
+            ctx.drawImage(@difficult_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+          when 'blocked'
+            ctx.drawImage(@blocked_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+        if gon.map.tiles[i][j].token
+          ctx.drawImage(@token_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+          
+  # Event handlers
+  
+  @clickHandler: (e) ->
+    offsetLeft = e.target.offsetLeft
+    offsetTop = e.target.offsetTop
+    x = e.clientX - offsetLeft
+    y = e.clientY - offsetTop
+    alert x + ', ' + y
+          
+  
+  
+  #  ctx.drawImage( image, 
+  #                20, 20,     # Start at 20/20 pixels from the left and the top of the image (crop),
+  #                1000, 800,  # "Get" a `1000 * 800` (w * h) area from the source image (crop),
+  #                0, 0,       # Place the result at 0, 0 in the canvas,
+  #                1000, 800); # With as width / height: 1000 * 800 (scale) 
