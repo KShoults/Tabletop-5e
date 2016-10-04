@@ -1,3 +1,11 @@
-<canvas id="viewport" class = "center">
-
-</canvas>
+<div id="viewport">
+    <aside class="viewportPanel" id="leftPanel">
+      <%= button_to "Draw", "javascript:Viewport.draw" %>
+    </aside>
+    <canvas height="1000" width="800">
+    </canvas>
+    <aside class="viewportPanel" id="rightPanel">
+      <%= button_to "+", "javascript:Viewport.zoomIn" %>
+      <%= button_to "-", "javascript:Viewport.zoomOut" %>
+    </aside>
+</div>

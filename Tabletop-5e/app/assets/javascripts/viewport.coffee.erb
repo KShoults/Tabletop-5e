@@ -1,8 +1,10 @@
 $ ->
-  viewport = $('#viewport').get(0)
+  viewport = $('#viewport canvas').get(0)
   if (viewport)
     Viewport.initializeViewport()
     $(window).load -> Viewport.drawMap()
+    Viewport.drawMap()
+    Viewport.resizeCanvas()
 
 class @Viewport
   @open_high
@@ -21,9 +23,22 @@ class @Viewport
   @token_med
   @token_low
   
+  # Canvas context
+  @ctx
+  
+  # Pre-render canvas
+  @pre_ctx
+  
+  @zoom = 50
+  
   @initializeViewport: ->
     @loadImages()
     @loadEventHandlers()
+    @ctx = $('#viewport canvas').get(0).getContext('2d')
+    pre_canvas = document.createElement('canvas')
+    @pre_ctx = pre_canvas.getContext('2d')
+    @pre_ctx.canvas.width = (gon.map.width) * @zoom
+    @pre_ctx.canvas.height = (gon.map.length) * @zoom
     
   @loadImages: ->
     @open_high = new Image()
@@ -58,35 +73,85 @@ class @Viewport
     @token_low.src = "<%= asset_path('token_low_rez.jpg') %>"
     
   @loadEventHandlers: ->
-    viewport = $('#viewport')
+    viewport = $('#viewport canvas')
     viewport.on 'click', @clickHandler
+#    $(window).on 'resize', @resizeCanvas
     
+  # Pre-render
   @drawMap: -> 
-    canvas = $('#viewport').get(0)
-    ctx = canvas.getContext("2d")
+    switch
+      when @zoom < 25 
+        open_tile = @open_low
+        normal_tile = @normal_low
+        difficult_tile = @difficult_low
+        blocked_tile = @blocked_low
+        token = @token_low
+        inputSize = 10
+      when @zoom < 75
+        open_tile = @open_med
+        normal_tile = @normal_med
+        difficult_tile = @difficult_med
+        blocked_tile = @blocked_med
+        token = @token_med
+        inputSize = 50
+      else
+        open_tile = @open_high
+        normal_tile = @normal_high
+        difficult_tile = @difficult_high
+        blocked_tile = @blocked_high
+        token = @token_high
+        inputSize = 100
+        
     for i in [0..gon.map.length - 1]
       for j in [0..gon.map.width - 1]
         switch gon.map.tiles[i][j].terrain
           when 'open'
-            ctx.drawImage(@open_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+            @pre_ctx.drawImage(open_tile, 0, 0, inputSize, inputSize, j * @zoom, i * @zoom, @zoom, @zoom)
           when 'normal'
-            ctx.drawImage(@normal_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+            @pre_ctx.drawImage(normal_tile, 0, 0, inputSize, inputSize, j * @zoom, i * @zoom, @zoom, @zoom)
           when 'difficult'
-            ctx.drawImage(@difficult_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+            @pre_ctx.drawImage(difficult_tile, 0, 0, inputSize, inputSize, j * @zoom, i * @zoom, @zoom, @zoom)
           when 'blocked'
-            ctx.drawImage(@blocked_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
+            @pre_ctx.drawImage(blocked_tile, 0, 0, inputSize, inputSize, j * @zoom, i * @zoom, @zoom, @zoom)
         if gon.map.tiles[i][j].token
-          ctx.drawImage(@token_low, 0, 0, 9, 9, j * 9, i * 9, 9, 9)
-          
+          @pre_ctx.drawImage(@token, 0, 0, inputSize, inputSize, j * @zoom, i * @zoom, @zoom, @zoom)
+    
+    @render()
+    
+  @render: ->
+    @ctx.drawImage(@pre_ctx.canvas, 0, 0, @ctx.canvas.width, @ctx.canvas.height, 0, 0, @ctx.canvas.width, @ctx.canvas.height)
+    
+  
   # Event handlers
   
   @clickHandler: (e) ->
-    offsetLeft = e.target.offsetLeft
-    offsetTop = e.target.offsetTop
+    offsetLeft = e.target.offsetLeft - $(document).scrollLeft()
+    offsetTop = e.target.offsetTop - $(document).scrollTop()
     x = e.clientX - offsetLeft
     y = e.clientY - offsetTop
-    alert x + ', ' + y
-          
+    zoom = Viewport.zoom
+    alert 'Coordinates: ' + (x // zoom) + ', ' + (y // zoom)
+    
+  @resizeCanvas: (e) ->
+    w = document.body.offsetWidth
+    h = document.body.offsetHeight
+    Viewport.ctx.canvas.width = w
+    Viewport.ctx.canvas.height = h
+    margin = $('.viewportPanel').css('width')
+    $('#viewport canvas').css("marginLeft", margin)
+    Viewport.render()
+    
+  @draw: (e) ->
+    alert "draw"
+    @drawImage
+    
+  @zoomIn: (e) ->
+    @zoom += 10
+    @drawImage
+    
+  @zoomOut: (e) ->
+    @zoom -= 10
+    @drawImage
   
   
   #  ctx.drawImage( image, 

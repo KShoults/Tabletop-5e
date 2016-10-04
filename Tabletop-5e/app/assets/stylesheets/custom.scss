@@ -179,8 +179,20 @@ input {
 /* viewport */
 
 #viewport {
- margin: 0 0 0 0;
- font-size: 0;
- width: 100%;
- height: 100%;
+
+  canvas {
+    
+    z-index: 1;
+  }    
+  .viewportPanel {
+    width: 15%;
+    background-color: gray;
+    z-index: 2;
+  }
+  #leftPanel {
+    float: left;
+  }
+  #rightPanel {
+    float: right;
+  }
 }
