@@ -37,8 +37,6 @@ class @Viewport
     @ctx = $('#viewport canvas').get(0).getContext('2d')
     pre_canvas = document.createElement('canvas')
     @pre_ctx = pre_canvas.getContext('2d')
-    @pre_ctx.canvas.width = (gon.map.width) * @zoom
-    @pre_ctx.canvas.height = (gon.map.length) * @zoom
     
   @loadImages: ->
     @open_high = new Image()
@@ -73,12 +71,17 @@ class @Viewport
     @token_low.src = "<%= asset_path('token_low_rez.jpg') %>"
     
   @loadEventHandlers: ->
-    viewport = $('#viewport canvas')
-    viewport.on 'click', @clickHandler
-#    $(window).on 'resize', @resizeCanvas
+    canvas = $('#viewport canvas')
+    canvas.on 'click', @clickHandler
+    $('#leftPanel #draw').on 'click', @draw
+    $('#rightPanel #zoomIn').on 'click', @zoomIn
+    $('#rightPanel #zoomOut').on 'click', @zoomOut
+    
     
   # Pre-render
-  @drawMap: -> 
+  @drawMap: => 
+    @pre_ctx.canvas.width = (gon.map.width) * @zoom
+    @pre_ctx.canvas.height = (gon.map.length) * @zoom
     switch
       when @zoom < 25 
         open_tile = @open_low
@@ -118,40 +121,43 @@ class @Viewport
     
     @render()
     
-  @render: ->
+  @render: =>
     @ctx.drawImage(@pre_ctx.canvas, 0, 0, @ctx.canvas.width, @ctx.canvas.height, 0, 0, @ctx.canvas.width, @ctx.canvas.height)
+    if @pre_ctx.canvas.height < @ctx.canvas.height
+      @ctx.fillStyle="gray"
+      @ctx.fillRect(0, @pre_ctx.canvas.height, @ctx.canvas.width, @ctx.canvas.height - @pre_ctx.canvas.height)
+      @ctx.stroke()
+    if @pre_ctx.canvas.width < @ctx.canvas.width
+      @ctx.fillStyle="gray"
+      @ctx.fillRect(@pre_ctx.canvas.width, 0, @ctx.canvas.width - @pre_ctx.canvas.width, @ctx.canvas.height)
+      @ctx.stroke()
+    requestAnimationFrame(@drawMap)
     
   
   # Event handlers
   
   @clickHandler: (e) ->
-    offsetLeft = e.target.offsetLeft - $(document).scrollLeft()
-    offsetTop = e.target.offsetTop - $(document).scrollTop()
+    offsetLeft = e.target.offsetLeft + e.target.offsetParent.offsetLeft - $(document).scrollLeft()
+    offsetTop = e.target.offsetTop + e.target.offsetParent.offsetTop - $(document).scrollTop()
     x = e.clientX - offsetLeft
     y = e.clientY - offsetTop
     zoom = Viewport.zoom
     alert 'Coordinates: ' + (x // zoom) + ', ' + (y // zoom)
     
   @resizeCanvas: (e) ->
-    w = document.body.offsetWidth
-    h = document.body.offsetHeight
-    Viewport.ctx.canvas.width = w
-    Viewport.ctx.canvas.height = h
-    margin = $('.viewportPanel').css('width')
-    $('#viewport canvas').css("marginLeft", margin)
+    Viewport.ctx.canvas.width = parseFloat($('#viewport').css('width')) * .7
     Viewport.render()
     
   @draw: (e) ->
     alert "draw"
-    @drawImage
     
   @zoomIn: (e) ->
-    @zoom += 10
-    @drawImage
+    if Viewport.zoom < 100
+      Viewport.zoom += 10
     
   @zoomOut: (e) ->
-    @zoom -= 10
-    @drawImage
+    if Viewport.zoom > 10
+      Viewport.zoom -= 10
   
   
   #  ctx.drawImage( image, 
