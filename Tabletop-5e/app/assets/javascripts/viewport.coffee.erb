@@ -2,11 +2,14 @@ $ ->
   viewport = $('#viewport canvas').get(0)
   if (viewport)
     Viewport.initializeViewport()
-    $(window).load -> Viewport.drawMap()
+    $(document).on 'ready page:change', Viewport.drawMap()
     Viewport.drawMap()
     Viewport.resizeCanvas()
+    requestAnimationFrame(Viewport.drawMap)
 
 class @Viewport
+  
+  # Tile Images
   @open_high
   @open_med
   @open_low
@@ -30,9 +33,18 @@ class @Viewport
   @pre_ctx
   
   @zoom = 50
+  @topOffset = 0
+  @leftOffset = 0
+  
+  # UI Panel layouts
+  
+  @leftPanelLayout
+  @rightPanelLayout
+  
   
   @initializeViewport: ->
     @loadImages()
+    @loadLayout()
     @loadEventHandlers()
     @ctx = $('#viewport canvas').get(0).getContext('2d')
     pre_canvas = document.createElement('canvas')
@@ -70,13 +82,63 @@ class @Viewport
     @token_med.src = "<%= asset_path('token_med_rez.jpg') %>"
     @token_low.src = "<%= asset_path('token_low_rez.jpg') %>"
     
+  @loadLayout: ->
+    if !@leftPanelLayout     # Use Default Left Layout
+      @loadDefaultLeftLayout()
+    if !@rightPanelLayout    # Use Default Right Layout
+      @loadDefaultRightLayout()
+    $('#leftPanel').get(0).appendChild(@leftPanelLayout)
+    $('#rightPanel').get(0).appendChild(@rightPanelLayout)
+    
+  @loadDefaultLeftLayout: ->
+    div = document.createElement('div')
+    
+    draw = document.createElement('button')
+    
+    draw.appendChild(document.createTextNode('Draw'))
+    
+    draw.onclick = @drawMap
+    
+    div.appendChild(draw)
+    
+    @leftPanelLayout = div
+    
+  @loadDefaultRightLayout: ->
+    div = document.createElement('div')
+    
+    zoomIn = document.createElement('button')
+    zoomOut = document.createElement('button')
+    panUp = document.createElement('button')
+    panRight = document.createElement('button')
+    panDown = document.createElement('button')
+    panLeft = document.createElement('button')
+    
+    zoomIn.appendChild(document.createTextNode('+'))
+    zoomOut.appendChild(document.createTextNode('-'))
+    panUp.appendChild(document.createTextNode('Up'))
+    panRight.appendChild(document.createTextNode('Right'))
+    panDown.appendChild(document.createTextNode('Down'))
+    panLeft.appendChild(document.createTextNode('Left'))
+    
+    zoomIn.onclick = @zoomIn
+    zoomOut.onclick = @zoomOut
+    panUp.onclick = @panUp
+    panRight.onclick = @panRight
+    panDown.onclick = @panDown
+    panLeft.onclick = @panLeft
+    
+    div.appendChild(zoomIn)
+    div.appendChild(zoomOut)
+    div.appendChild(panUp)
+    div.appendChild(panRight)
+    div.appendChild(panDown)
+    div.appendChild(panLeft)
+    
+    @rightPanelLayout = div
+    
   @loadEventHandlers: ->
     canvas = $('#viewport canvas')
     canvas.on 'click', @clickHandler
-    $('#leftPanel #draw').on 'click', @draw
-    $('#rightPanel #zoomIn').on 'click', @zoomIn
-    $('#rightPanel #zoomOut').on 'click', @zoomOut
-    
     
   # Pre-render
   @drawMap: => 
@@ -122,15 +184,26 @@ class @Viewport
     @render()
     
   @render: =>
-    @ctx.drawImage(@pre_ctx.canvas, 0, 0, @ctx.canvas.width, @ctx.canvas.height, 0, 0, @ctx.canvas.width, @ctx.canvas.height)
-    if @pre_ctx.canvas.height < @ctx.canvas.height
-      @ctx.fillStyle="gray"
-      @ctx.fillRect(0, @pre_ctx.canvas.height, @ctx.canvas.width, @ctx.canvas.height - @pre_ctx.canvas.height)
+    @ctx.drawImage(@pre_ctx.canvas, @leftOffset, @topOffset, @ctx.canvas.width, @ctx.canvas.height, 0, 0, @ctx.canvas.width, @ctx.canvas.height)
+    
+    @ctx.fillStyle="gray"
+    # top border
+    if @topOffset < 0
+      @ctx.fillRect(0, 0, @ctx.canvas.width, -@topOffset)
       @ctx.stroke()
-    if @pre_ctx.canvas.width < @ctx.canvas.width
-      @ctx.fillStyle="gray"
-      @ctx.fillRect(@pre_ctx.canvas.width, 0, @ctx.canvas.width - @pre_ctx.canvas.width, @ctx.canvas.height)
+    # right border
+    if @pre_ctx.canvas.width - @leftOffset < @ctx.canvas.width
+      @ctx.fillRect(@pre_ctx.canvas.width - @leftOffset, 0, @ctx.canvas.width - (@pre_ctx.canvas.width - @leftOffset), @ctx.canvas.height)
       @ctx.stroke()
+    # bottom border
+    if @pre_ctx.canvas.height - @topOffset < @ctx.canvas.height
+      @ctx.fillRect(0, @pre_ctx.canvas.height - @topOffset, @ctx.canvas.width, @ctx.canvas.height - (@pre_ctx.canvas.height - @topOffset))
+      @ctx.stroke()
+    # left border
+    if @leftOffset < 0
+      @ctx.fillRect(0, 0, -@leftOffset, @ctx.canvas.height)
+      @ctx.stroke()
+      
     requestAnimationFrame(@drawMap)
     
   
@@ -148,16 +221,32 @@ class @Viewport
     Viewport.ctx.canvas.width = parseFloat($('#viewport').css('width')) * .7
     Viewport.render()
     
-  @draw: (e) ->
+  @draw: (e) =>
     alert "draw"
     
-  @zoomIn: (e) ->
-    if Viewport.zoom < 100
-      Viewport.zoom += 10
+  @zoomIn: (e) =>
+    if @zoom < 100
+      @zoom += 10
     
-  @zoomOut: (e) ->
-    if Viewport.zoom > 10
-      Viewport.zoom -= 10
+  @zoomOut: (e) =>
+    if @zoom > 10
+      @zoom -= 10
+      
+  @panUp: (e) =>
+    if @topOffset >= 0
+      @topOffset -= .5 * @zoom
+      
+  @panRight: (e) =>
+    if @leftOffset <= @pre_ctx.canvas.width
+      @leftOffset += .5 * @zoom
+      
+  @panDown: (e) =>
+    if @topOffset <= @pre_ctx.canvas.height
+      @topOffset += .5 * @zoom
+      
+  @panLeft: (e) =>
+    if @leftOffset >= 0
+      @leftOffset -= .5 * @zoom
   
   
   #  ctx.drawImage( image, 
